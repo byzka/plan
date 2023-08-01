@@ -12,6 +12,7 @@ type UserModel struct {
 	ID           int    `form:"id"`
 	Phone_number int    `form:"number"`
 	Head         sql.NullString
+	Set          Setting
 }
 
 func (user *UserModel) Save() int64 {
@@ -57,7 +58,7 @@ func (user *UserModel) Q_BY_PHone(phone int) (UserModel, error) {
 }
 
 func (user *UserModel) Update(id int) error {
-	var stmt, e = init_DB.DB.Prepare("update user set password=?,avatar=?  where id=? ")
+	var stmt, e = init_DB.DB.Prepare("update user set password=?,head=?  where id=? ")
 	if e != nil {
 		log.Panicln("发生了错误", e.Error())
 	}

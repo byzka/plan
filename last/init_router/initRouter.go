@@ -36,8 +36,19 @@ func SetupRouter() *gin.Engine {
 
 	searchRoute := r.Group("/search")
 	{
-		searchRoute.GET("/a", handler.S_A)
+		searchRoute.POST("/a", handler.S_A)
 		searchRoute.POST("/q", handler.S_Q)
+	}
+	settingRoute := r.Group("/setting")
+	{
+		settingRoute.GET("/show", handler.Show)
+		settingRoute.POST("/change/local")
+		settingRoute.POST("/new", handler.Creat_s)
+	}
+	postRoute := r.Group("/post")
+	{
+		postRoute.POST("/create")
+		postRoute.GET("/look")
 	}
 	r.GET("/", func(context *gin.Context) {
 		context.String(http.StatusOK, "welcome")
